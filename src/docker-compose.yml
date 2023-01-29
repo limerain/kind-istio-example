@@ -1,0 +1,40 @@
+version: "3.3"
+
+services:
+  user:
+    image: user-service
+    build:
+      context: ./user
+    ports:
+      - "3000:3000"
+    expose:
+      - "3000"
+  score:
+    image: score-service
+    build:
+      context: ./score
+    ports:
+      - "3001:3001"
+    expose:
+      - "3001"
+  rank:
+    image: rank-service
+    build:
+      context: ./ranking
+    environment:
+      userServer: "user"
+      scoreServer: "score"
+    ports:
+      - "3002:3002"
+    expose:
+      - "3002"      
+  wordle:
+    image: wordle-web
+    build:
+      context: ./wordle
+    environment:
+      PORT: "5173"
+    ports:
+      - "5173:5173"
+    expose:
+      - "5173"

@@ -1,0 +1,20 @@
+version: "3.9"
+
+networks:
+  default:
+    external: true
+    name: kind
+
+services:
+  traefik:
+    image: "traefik:3.0"
+    networks:
+      - default
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./dynamic.yml:/etc/traefik/dynamic/dynamic.yml:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      TZ: Asia/Seoul

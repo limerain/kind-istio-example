@@ -1,0 +1,12 @@
+tcp:
+  routers:
+    to-gateway:
+      entryPoints:
+        - web
+      service: gateway
+      rule: "HostSNI(`*`)"
+  services:
+    gateway:
+      loadBalancer:
+        servers:
+          - address: ${SERVICE_IP}:80
